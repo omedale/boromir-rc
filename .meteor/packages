@@ -94,4 +94,6 @@ practicalmeteor:sinon
 
 
 # Custom Packages
+simple:rest
+nimble:restivus
 abernix:standard-minifier-js
