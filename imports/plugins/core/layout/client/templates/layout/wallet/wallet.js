@@ -4,6 +4,9 @@ import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
 import { Reaction } from "/client/api";
 import { Accounts, Packages, Wallets } from "/lib/collections";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 let list = [];
 let pageList = [];
@@ -112,8 +115,8 @@ const getPaystackSettings = () => {
     shopId: Reaction.getShopId()
   });
   return {
-    public: "pk_test_e3ab9ae9c95f11b17ff0c4b115ca17a958ef0196",
-    secret: "sk_test_b5d95e343d763860063c62c0feac07659cf025df"
+    public: process.env.PAYSTACK_PUBLIC,
+    secret: process.env.PAYSTACK_SECRECT
   };
 };
 
