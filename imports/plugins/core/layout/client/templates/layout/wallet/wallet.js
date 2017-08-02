@@ -180,7 +180,6 @@ function handlePayment(result) {
 // Paystack payment
 const payWithPaystack = (email, amount) => {
   const paystackConfig = getPaystackSettings();
-  // console.log("Paystack Config", paystackConfig);
   const handler = PaystackPop.setup({
     key: paystackConfig.public,
     email: email,
