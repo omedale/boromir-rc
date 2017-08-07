@@ -56,7 +56,6 @@ Template.ordersListSummary.events({
 
     const state = instance.state;
     const order = state.get("order");
-
     Alerts.alert({
       // title: "Are you sure you want to cancel this order.",
       showCancelButton: true,
