@@ -113,7 +113,9 @@ Template.coreOrderCancelOrder.helpers({
   messages() {
     return Template.instance().formMessages.get();
   },
-
+  adminDashboard() {
+    return true;
+  },
   showEditor() {
     return Session.get("showEditor");
   },
