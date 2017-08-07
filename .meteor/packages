@@ -97,5 +97,7 @@ practicalmeteor:sinon
 simple:rest
 nimble:restivus
 abernix:standard-minifier-js
+pauldowman:dotenv
+mizzao:autocomplete
 schiller:twit
 barbatus:stars-rating

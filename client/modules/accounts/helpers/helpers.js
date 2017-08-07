@@ -43,5 +43,11 @@ export const LoginFormSharedHelpers = {
 
   hasPasswordService() {
     return !!Package["accounts-password"];
+  },
+  userType() {
+    return Session.get("userType");
+  },
+  equals(key, value) {
+    return key === value;
   }
 };
