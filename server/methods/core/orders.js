@@ -3,6 +3,7 @@ import path from "path";
 import moment from "moment";
 import accounting from "accounting-js";
 import Future from "fibers/future";
+import twilio from "twilio";
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { getSlug } from "/lib/api";
@@ -10,6 +11,8 @@ import { Cart, Media, Orders, Products, Shops } from "/lib/collections";
 import * as Schemas from "/lib/collections/schemas";
 import { Logger, Reaction } from "/server/api";
 
+
+process.env.MAIL_URL = "smtp://apikey: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@smtp.sendgrid.net:587";
 /**
  * Reaction Order Methods
  */
@@ -178,6 +181,71 @@ Meteor.methods({
   },
 
   /**
+   * orders/cancelOrder
+   *
+   * @summary Cancel an Order
+   * @param {Object} order - order object
+   * @return {Object} return update result
+   */
+  "orders/cancelOrder"(order) {
+    check(order, Object);
+    return Orders.update(order._id, {
+      $set: {
+        "workflow.status": "canceled"
+      },
+      $addToSet: {
+        "workflow.workflow": "coreOrderWorkflow/canceled"
+      }
+    });
+  },
+
+  /**
+   * orders/vendorCancelOrder
+   *
+   * @summary Cancel an Order
+   * @param {Object} order - order object
+   * @param {Object} newComment - new comment object
+   * @return {Object} return update result
+   */
+  "orders/vendorCancelOrder"(order, newComment) {
+    check(order, Object);
+    check(newComment, Object);
+
+    if (!Reaction.hasPermission("orders")) {
+      throw new Meteor.Error(403, "Access Denied");
+    }
+
+    // Send an email notificcation with SENDGRID
+    Reaction.Email.send({
+      to: order.email,
+      from: "boromir.rc@email.com",
+      subject: "REACTION Commerce Order Cancelled",
+      html: `<div><p>Hello, </p>
+        <p>Your order was cancelled for the following reason</p>
+        <strong>
+          <p>Item Ordered:   ${order.items[0].title}</p>
+          <p style="color: red;">Reason:   ${newComment.body}</p>
+          <p>Time:   ${newComment.updatedAt}</p>
+        <strong><br><br>
+        <p>Best Regards, <p>
+        <p> Reaction Commerce Admin </p>
+      </div>`
+    });
+    // TODO: Refund order
+    return Orders.update(order._id, {
+      $set: {
+        "workflow.status": "canceled"
+      },
+      $push: {
+        comments: newComment
+      },
+      $addToSet: {
+        "workflow.workflow": "coreOrderWorkflow/canceled"
+      }
+    });
+  },
+
+  /**
    * orders/processPayment
    *
    * @summary trigger processPayment and workflow update
@@ -325,6 +393,38 @@ Meteor.methods({
   "orders/sendNotification": function (order) {
     check(order, Object);
 
+  /**
+   * orders/sendSmsNotifications
+   *
+   * @summary send order notification sms to users
+   * @param {Object} order - order object
+   * @return {Boolean} sms sent or not
+   */
+    const shoppersPhone = order.billing[0].address.phone;
+    Logger.info("CUSTOMER ORDER DETAILS", order.items);
+    Logger.info("CUSTOMER'S EMAIL", order.email);
+    Logger.info("CUSTOMERS PHONE NUMBER " + shoppersPhone);
+
+   // let vendorPhones = [];
+    const smsContent = {
+      to: shoppersPhone
+    };
+    Logger.info("smsContent for Customer", smsContent);
+
+    const message = {
+      "new": "Your Order has been successfully received and is been processed. Thanks.",
+      "coreOrderWorkflow/processing": "Your orders is on the way and will soon be delivered",
+      "coreOrderWorkflow/completed": "Your orders has been shipped, thanks.",
+      "coreorderWorkflow/canceled": "Your order was cancelled",
+      "success": "SMS SENT"
+    };
+
+    Logger.info("smsContent for Customer", smsContent);
+    smsContent.message = message[order.workflow.status];
+    Meteor.call("send/smsAlert", smsContent, (error) => {
+      Meteor.call("orders/response/error", error, message.success);
+    });
+
     if (!this.userId) {
       Logger.error("orders/sendNotification: Access denied");
       throw new Meteor.Error("access-denied", "Access Denied");
@@ -434,13 +534,64 @@ Meteor.methods({
     Reaction.Email.send({
       to: order.email,
       from: `${shop.name} <${shop.emails[0].address}>`,
-      subject: `Your order is confirmed`,
-      // subject: `Order update from ${shop.name}`,
+      // subject: "Your order is confirmed",
+      subject: `Order update from ${shop.name}`,
+      // subject: "Your order is confirmed",
       html: SSR.render(tpl,  dataForOrderEmail)
     });
 
     return true;
   },
+
+  /**
+  * send/smsAlert
+  *
+  * @summary trigger sms from twilio
+  * @param {Object} smsContent - body of message object
+  * @return {Object} return success or error on completion
+  */
+  "send/smsAlert": function (smsContent) {
+    check(smsContent, Object);
+    const accountSid = "AC47f25916505c362859637c7e98b07564";
+    const authToken = "f5030c5c18cdd27ab90b72b465252535";
+    const client = new twilio(accountSid, authToken);
+
+    const numb = smsContent.to;
+    let validNo;
+    if (numb.substr(0, 2) === "07" || "08") {
+      validNo = numb.replace(numb.substr(0, 1), "+234");
+    }
+    Logger.info(validNo);
+    const body =  smsContent.message;
+    client.messages.create({
+      body,
+      to: validNo || smsContent.to,  // Text this number
+      from: "+16283000182" // From a valid Twilio number
+    })
+    .then((message) => {
+      Logger.info(message);
+    }).catch((error) => {
+      Logger.info(error);
+    });
+  },
+
+  /**
+  * orders/response/error
+  * Logs message based on the error info received
+  * @param {Object} error - error message
+  * @param {String} success - success message
+  * @return {null} no return value
+  */
+  "orders/response/error": (error, success) => {
+    check(error);
+    check(success, String);
+    if (error) {
+      Logger.warn("ERROR", error);
+    } else {
+      Logger.info(success);
+    }
+  },
+
 
   /**
    * orders/orderCompleted
@@ -852,3 +1003,4 @@ Meteor.methods({
     }
   }
 });
+
