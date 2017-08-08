@@ -94,4 +94,11 @@ practicalmeteor:sinon
 
 
 # Custom Packages
+simple:rest
+nimble:restivus
 abernix:standard-minifier-js
+email
+pauldowman:dotenv
+mizzao:autocomplete
+schiller:twit
+barbatus:stars-rating

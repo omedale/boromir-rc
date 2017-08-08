@@ -6,14 +6,44 @@ import { ProductSearch, OrderSearch, AccountSearch } from "/lib/collections";
 
 const supportedCollections = ["products", "orders", "accounts"];
 
+// function getProductFindTerm(searchTerm, searchTags, userId) {
+//   const shopId = Reaction.getShopId();
+//   const findTerm = {
+//     shopId: shopId,
+//     $text: {$search: searchTerm}
+//   };
+//   if (searchTags.length) {
+//     findTerm.hashtags = {$all: searchTags};
+//   }
+//   if (!Roles.userIsInRole(userId, ["admin", "owner"], shopId)) {
+//     findTerm.isVisible = true;
+//   }
+//   return findTerm;
+// }
+
 function getProductFindTerm(searchTerm, searchTags, userId) {
   const shopId = Reaction.getShopId();
   const findTerm = {
-    shopId: shopId,
-    $text: {$search: searchTerm}
+    $and: [
+      { shopId: shopId },
+      { $or: [
+        {
+          title: {
+            $regex: searchTerm,
+            $options: "i"
+          }
+        },
+        {
+          description: {
+            $regex: searchTerm,
+            $options: "i"
+          }
+        }
+      ] }
+    ]
   };
   if (searchTags.length) {
-    findTerm.hashtags = {$all: searchTags};
+    findTerm.hashtags = { $all: searchTags };
   }
   if (!Roles.userIsInRole(userId, ["admin", "owner"], shopId)) {
     findTerm.isVisible = true;

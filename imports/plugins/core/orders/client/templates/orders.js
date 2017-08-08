@@ -13,9 +13,12 @@ const orderFilters = [{
 }, {
   name: "completed",
   label: "Completed"
+}, {
+  name: "canceled",
+  label: "Canceled"
 }];
 
-const OrderHelper =  {
+const OrderHelper = {
   makeQuery(filter) {
     let query = {};
 
@@ -295,7 +298,6 @@ Template.orderStatusDetail.helpers({
   orderAge: function () {
     return moment(this.createdAt).fromNow();
   },
-
   shipmentTracking: function () {
     if (this.shipping[0].tracking) {
       return this.shipping[0].tracking;
@@ -333,3 +335,4 @@ Template.orderStatusDetail.helpers({
     };
   }
 });
+
