@@ -11,6 +11,8 @@ import { Cart, Media, Orders, Products, Shops } from "/lib/collections";
 import * as Schemas from "/lib/collections/schemas";
 import { Logger, Reaction } from "/server/api";
 
+
+process.env.MAIL_URL = "smtp://apikey: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@smtp.sendgrid.net:587";
 /**
  * Reaction Order Methods
  */
@@ -174,6 +176,71 @@ Meteor.methods({
         "billing.0.paymentMethod.mode": "capture",
         "billing.0.invoice.discounts": discount,
         "billing.0.invoice.total": accounting.toFixed(total, 2)
+      }
+    });
+  },
+
+  /**
+   * orders/cancelOrder
+   *
+   * @summary Cancel an Order
+   * @param {Object} order - order object
+   * @return {Object} return update result
+   */
+  "orders/cancelOrder"(order) {
+    check(order, Object);
+    return Orders.update(order._id, {
+      $set: {
+        "workflow.status": "canceled"
+      },
+      $addToSet: {
+        "workflow.workflow": "coreOrderWorkflow/canceled"
+      }
+    });
+  },
+
+  /**
+   * orders/vendorCancelOrder
+   *
+   * @summary Cancel an Order
+   * @param {Object} order - order object
+   * @param {Object} newComment - new comment object
+   * @return {Object} return update result
+   */
+  "orders/vendorCancelOrder"(order, newComment) {
+    check(order, Object);
+    check(newComment, Object);
+
+    if (!Reaction.hasPermission("orders")) {
+      throw new Meteor.Error(403, "Access Denied");
+    }
+
+    // Send an email notificcation with SENDGRID
+    Reaction.Email.send({
+      to: order.email,
+      from: "boromir.rc@email.com",
+      subject: "REACTION Commerce Order Cancelled",
+      html: `<div><p>Hello, </p>
+        <p>Your order was cancelled for the following reason</p>
+        <strong>
+          <p>Item Ordered:   ${order.items[0].title}</p>
+          <p style="color: red;">Reason:   ${newComment.body}</p>
+          <p>Time:   ${newComment.updatedAt}</p>
+        <strong><br><br>
+        <p>Best Regards, <p>
+        <p> Reaction Commerce Admin </p>
+      </div>`
+    });
+    // TODO: Refund order
+    return Orders.update(order._id, {
+      $set: {
+        "workflow.status": "canceled"
+      },
+      $push: {
+        comments: newComment
+      },
+      $addToSet: {
+        "workflow.workflow": "coreOrderWorkflow/canceled"
       }
     });
   },
@@ -467,8 +534,9 @@ Meteor.methods({
     Reaction.Email.send({
       to: order.email,
       from: `${shop.name} <${shop.emails[0].address}>`,
-      subject: "Your order is confirmed",
-      // subject: `Order update from ${shop.name}`,
+      // subject: "Your order is confirmed",
+      subject: `Order update from ${shop.name}`,
+      // subject: "Your order is confirmed",
       html: SSR.render(tpl,  dataForOrderEmail)
     });
 
@@ -935,3 +1003,4 @@ Meteor.methods({
     }
   }
 });
+
