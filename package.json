@@ -30,9 +30,11 @@
     "braintree": "^1.41.0",
     "bunyan": "^1.8.1",
     "bunyan-format": "^0.2.1",
+    "chromedriver": "^2.29.0",
     "classnames": "^2.2.5",
     "country-data": "^0.0.30",
     "css-annotation": "^0.6.2",
+    "cucumber": "^2.3.1",
     "deep-diff": "^0.3.4",
     "dnd-core": "^2.0.2",
     "dotenv": "^4.0.0",
@@ -78,6 +80,7 @@
     "react-tether": "^0.5.2",
     "react-textarea-autosize": "^4.0.5",
     "request": "^2.81.0",
+    "selenium-webdriver": "^3.4.0",
     "sortablejs": "^1.4.2",
     "stripe": "^4.11.0",
     "sweetalert2": "^5.3.8",
@@ -97,6 +100,7 @@
     "eslint-plugin-react": "^6.3.0",
     "js-yaml": "^3.6.1",
     "react-addons-test-utils": "^15.3.2",
+    "selenium-cucumber-js": "^1.4.8",
     "wdio-allure-reporter": "^0.1.1",
     "wdio-mocha-framework": "^0.4.3",
     "webdriverio": "^4.2.16"
@@ -111,6 +115,7 @@
     }
   },
   "scripts": {
+    "test": "node ./node_modules/selenium-cucumber-js/index.js -s ./features/ -r ./features/.reports",
     "create-report": "allure generate allure-results/ -o ~/allure-report",
     "open-report": "cd && allure report open",
     "del-report": "rm -rf ~/allure-report && rm -rf allure-results",
