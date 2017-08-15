@@ -11,7 +11,6 @@ import { Cart, Media, Orders, Products, Shops } from "/lib/collections";
 import * as Schemas from "/lib/collections/schemas";
 import { Logger, Reaction } from "/server/api";
 
-
 process.env.MAIL_URL = "smtp://apikey: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@smtp.sendgrid.net:587";
 /**
  * Reaction Order Methods
