@@ -7,11 +7,15 @@ import twilio from "twilio";
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { getSlug } from "/lib/api";
-import { Cart, Media, Orders, Products, Shops } from "/lib/collections";
+import { Cart, Media, Orders, Products, Shops, MailUrl } from "/lib/collections";
 import * as Schemas from "/lib/collections/schemas";
 import { Logger, Reaction } from "/server/api";
 
-process.env.MAIL_URL = "smtp://apikey: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@smtp.sendgrid.net:587";
+// Get Mail Url from database
+const emailUrl = MailUrl.findOne();
+process.env.MAIL_URL = emailUrl.url;
+
+
 /**
  * Reaction Order Methods
  */
