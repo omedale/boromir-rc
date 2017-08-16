@@ -219,7 +219,7 @@ Meteor.methods({
     }
 
     // Send an email notificcation with SENDGRID
-    Reaction.Email.send({
+    Email.send({
       to: order.email,
       from: "boromir.rc@email.com",
       subject: "REACTION Commerce Order Cancelled",
