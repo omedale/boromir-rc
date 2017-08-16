@@ -532,9 +532,9 @@ Meteor.methods({
     // email templates can be customized in Templates collection
     // loads defaults from /private/email/templates
     const tpl = `orders/${order.workflow.status}`;
-    SSR.compileTemplate(tpl, Reaction.Email.getTemplate(tpl));
+    SSR.compileTemplate(tpl, Email.getTemplate(tpl));
 
-    Reaction.Email.send({
+    Email.send({
       to: order.email,
       from: `${shop.name} <${shop.emails[0].address}>`,
       // subject: "Your order is confirmed",

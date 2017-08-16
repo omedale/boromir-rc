@@ -57,7 +57,7 @@ Meteor.methods({
       content,
       shopId
     };
-    check(page, Schemas.StaticPages);
+    // check(page, Schemas.StaticPages);
     Collections.StaticPages.update(_id, {
       $set:
         page
