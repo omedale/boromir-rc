@@ -6,3 +6,5 @@ cardnumber_id: cardnumber
 expiry_id: expiry
 cvv_id: cvv
 pay_btn: pay-btn
+comment: comment
+
