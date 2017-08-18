@@ -95,3 +95,10 @@ stripe_complete_order_btn: "//form[@id='stripe-payment-form']/button"
 
 # order confirmation page
 thank_you_txt: "h3 > span"
+
+account_dropdown: "#accounts"
+dashboard_dropdown: "#dropdown-apps-dashboard"
+manage_static_page: "(//h3[@class='title'])[5]"
+created_page: "(//a[@id='About-Page'])"
+delete_page: "[class='btn btn-default deletePage']"
+confirm_delete: "[class='swal2-confirm swal2-styled']"
