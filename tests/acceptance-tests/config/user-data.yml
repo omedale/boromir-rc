@@ -1,9 +1,11 @@
-admin_user: Administrator
-admin_email: testing@reactioncommerce.com
-admin_pw: password123
+admin_email: 
+admin_pw: 
 
-guest_email: "guest@reactioncommerce.com"
-guest_pw: password123
+guest_pw: 
+guest_email: 
+admin_user: Admin
+guest_user: Guest
+wallet_history: Transaction History
 
 # shop address
 country: US
