@@ -22,3 +22,6 @@ import "./templates/layout/wallet/wallet.js";
 
 import "./templates/theme/theme.html";
 import "./templates/theme/theme.js";
+
+import "./templates/layout/staticPages/staticPage.html";
+import "./templates/layout/staticPages/staticPage.js";
