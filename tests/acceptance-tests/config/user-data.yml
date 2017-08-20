@@ -5,8 +5,7 @@ admin_pw: ujHeDyLa
 guest_email: "guest@reactioncommerce.com"
 guest_pw: password123
 
-# guest_email: "guest@reactioncommerce.com"
-# guest_pw: password123
+wallet_history: Transaction History
 
 # shop address
 country: US

@@ -56,6 +56,8 @@ describe("Manage static pages", function () {
     browser.click(eleMap.delete_page);
     browser.pause(2000);
     browser.click(eleMap.confirm_delete);
+    browser.pause(500);
+    browser.click(eleMap.shop_btn);
     browser.pause(5000);
     expect(browser.getAttribute("a", "About-Page")).to.exist;
   });
