@@ -7,12 +7,15 @@ import twilio from "twilio";
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { getSlug } from "/lib/api";
-import { Cart, Media, Orders, Products, Shops } from "/lib/collections";
+import { Cart, Media, Orders, Products, Shops, MailUrl } from "/lib/collections";
 import * as Schemas from "/lib/collections/schemas";
 import { Logger, Reaction } from "/server/api";
 
+// Get Mail Url from database
+const emailUrl = MailUrl.findOne();
+process.env.MAIL_URL = emailUrl.url;
 
-process.env.MAIL_URL = "smtp://apikey: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@smtp.sendgrid.net:587";
+
 /**
  * Reaction Order Methods
  */
@@ -216,7 +219,7 @@ Meteor.methods({
     }
 
     // Send an email notificcation with SENDGRID
-    Reaction.Email.send({
+    Email.send({
       to: order.email,
       from: "boromir.rc@email.com",
       subject: "REACTION Commerce Order Cancelled",
@@ -529,9 +532,9 @@ Meteor.methods({
     // email templates can be customized in Templates collection
     // loads defaults from /private/email/templates
     const tpl = `orders/${order.workflow.status}`;
-    SSR.compileTemplate(tpl, Reaction.Email.getTemplate(tpl));
+    SSR.compileTemplate(tpl, Email.getTemplate(tpl));
 
-    Reaction.Email.send({
+    Email.send({
       to: order.email,
       from: `${shop.name} <${shop.emails[0].address}>`,
       // subject: "Your order is confirmed",
