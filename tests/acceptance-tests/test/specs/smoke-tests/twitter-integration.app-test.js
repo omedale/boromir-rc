@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 describe("twitter test", function () {
-  it("verifies the twitter integration shows correctly", () => {
+  xit("verifies the twitter integration shows correctly", () => {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
 
     browser.pause("5000");
