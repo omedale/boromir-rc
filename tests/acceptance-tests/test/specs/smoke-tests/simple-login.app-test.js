@@ -31,6 +31,6 @@ describe("simple login test", function () {
     browser.setValue(getId.retId(eleIds.login_pw_fld_id), adminPassword);
     browser.click(eleMap.login_btn);
     browser.pause("5000");
-    expect(browser.getText("#logged-in-display-name")).to.equal(adminUserName);
+    expect(browser.getText(".userName")).to.equal(adminUserName);
   });
 });
