@@ -32,7 +32,7 @@ describe("Manage static pages", function () {
     browser.pause("5000");
 
     browser.click(eleMap.account_dropdown);
-    browser.pause(1000);
+    browser.pause(3000);
     browser.click(eleMap.dashboard_dropdown);
     browser.pause(2000);
     browser.click(eleMap.manage_static_page);
@@ -57,7 +57,9 @@ describe("Manage static pages", function () {
     browser.pause(2000);
     browser.click(eleMap.confirm_delete);
     browser.pause(500);
-    browser.click(eleMap.shop_btn);
+    browser.click(eleMap.home_page);
+    browser.pause(500);
+    browser.click(eleMap.availbale_pages);
     browser.pause(5000);
     expect(browser.getAttribute("a", "About-Page")).to.exist;
   });

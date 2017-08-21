@@ -13,7 +13,7 @@ beforeEach(function () {
   // });
 });
 
-describe("Order", function () {
+describe("User", function () {
   it("Should be able to cancel order", function () {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
     const eleIds = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-ids.yml", "utf8"));
@@ -39,7 +39,7 @@ describe("Order", function () {
     browser.click("#BCTMZ6HTxFSppJESk");
     browser.pause("3000");
     browser.scroll(0, 300);
-    browser.pause("4000");
+    browser.pause("7000");
     browser.click(eleMap.red_option);
     browser.pause("1000");
     browser.click(".js-add-to-cart");
