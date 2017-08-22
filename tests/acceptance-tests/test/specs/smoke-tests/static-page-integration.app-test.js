@@ -13,8 +13,8 @@ beforeEach(function () {
   // });
 });
 
-describe("simple login test", function () {
-  xit("verify user is able to login - and verifies user name in dropdown", function () {
+describe("Manage static pages", function () {
+  it("verify admin can create static pages", function () {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
     const eleIds = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-ids.yml", "utf8"));
     const usrData = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/config/user-data.yml", "utf8"));
@@ -22,15 +22,45 @@ describe("simple login test", function () {
     // default to process env if we've got that
     const adminEmail = process.env.REACTION_EMAIL || usrData.admin_email;
     const adminPassword = process.env.REACTION_AUTH || usrData.admin_pw;
-    const adminUserName = process.env.REACTION_USER || usrData.admin_user;
 
     browser.pause("5000");
     browser.click(eleMap.login_dropdown_btn);
-    browser.pause(5000);
+    browser.pause(3000);
     browser.setValue(getId.retId(eleIds.login_email_fld_id), adminEmail);
     browser.setValue(getId.retId(eleIds.login_pw_fld_id), adminPassword);
     browser.click(eleMap.login_btn);
     browser.pause("5000");
-    expect(browser.getText(".userName")).to.equal(adminUserName);
+
+    browser.click(eleMap.account_dropdown);
+    browser.pause(3000);
+    browser.click(eleMap.dashboard_dropdown);
+    browser.pause(2000);
+    browser.click(eleMap.manage_static_page);
+    browser.pause(2000);
+    browser.setValue("#static_page_title", "About-Page");
+    browser.setValue("#static-page-slug", "About-Page");
+    browser.pause(1000);
+    browser.click("#static-pages-submit");
+    browser.pause(2000);
+    browser.click("#logged-in-display-name");
+    browser.pause(2000);
+    browser.click(eleMap.created_page);
+    browser.pause(5000);
+
+    browser.click(eleMap.account_dropdown);
+    browser.pause(1000);
+    browser.click(eleMap.dashboard_dropdown);
+    browser.pause(2000);
+    browser.click(eleMap.manage_static_page);
+    browser.pause(2000);
+    // browser.click(eleMap.delete_page);
+    browser.click(eleMap.delete_page);
+    browser.pause(2000);
+    browser.click(eleMap.confirm_delete);
+    browser.pause(500);
+    browser.click(eleMap.home_page);
+    browser.pause(5000);
+    expect(browser.getAttribute("a", "About-Page")).to.exist;
   });
 });
+

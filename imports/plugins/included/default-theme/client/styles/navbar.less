@@ -132,13 +132,25 @@
   .flex(0 0 auto);
   height: @navbar-height;
 }
+.rui.navbar .pages {
+  .flex(0 0 auto);
+  height: @navbar-height;
+}
 
 .rui.navbar .accounts:hover {
   background-color: @navbar-default-toggle-icon-bar-bg;
   border-color: @navbar-default-toggle-border-color;
 }
+.rui.navbar .pages:hover {
+  background-color: @navbar-default-toggle-icon-bar-bg;
+  border-color: @navbar-default-toggle-border-color;
+}
 
 .rui.navbar .accounts:active {
+  background-color: @navbar-default-toggle-icon-bar-bg;
+  border-color: @navbar-default-toggle-border-color;
+}
+.rui.navbar .pages:active {
   background-color: @navbar-default-toggle-icon-bar-bg;
   border-color: @navbar-default-toggle-border-color;
 }
@@ -151,16 +163,34 @@
   padding: 0 @navbar-padding-vertical;
   .padding-left(@navbar-padding-vertical);
 }
+.rui.navbar .pages .dropdown-toggle {
+  .display(flex);
+  .align-items(center);
+  height: 100%;
+
+  padding: 0 @navbar-padding-vertical;
+  .padding-left(@navbar-padding-vertical);
+}
 
 .rui.navbar .accounts .dropdown {
+  height: 100%;
+}
+.rui.navbar .pages .dropdown {
   height: 100%;
 }
 
 .rui.navbar .accounts .additional-link-container a {
   color: @link-color;
 }
+.rui.navbar .pages .additional-link-container a {
+  color: @link-color;
+}
 
 .rui.navbar .accounts .additional-link-container a:hover {
+  color: @link-hover-color;
+  background-color: transparent;
+}
+.rui.navbar .pages .additional-link-container a:hover {
   color: @link-hover-color;
   background-color: transparent;
 }
@@ -174,12 +204,27 @@
   // padding: 10px;
   display: inline-block;
 }
+.rui.navbar .pages .dropdown .circular-icon {
+  width: 40px;
+  height: 40px;
+  margin: -15px 5px;
+  border: 2px solid rgba(129, 122, 122, 0.62);
+  border-radius: 50%;
+  // padding: 10px;
+  display: inline-block;
+}
 
 .rui.navbar .accounts .dropdown .circular-icon .avatar-initials {
   line-height: 35px;
 }
+.rui.navbar .pages .dropdown .circular-icon .avatar-initials {
+  line-height: 35px;
+}
 
 .rui.navbar .accounts .dropdown .user-accounts-dropdown {
+  padding: 10px;
+}
+.rui.navbar .pages .dropdown .user-accounts-dropdown {
   padding: 10px;
 }
 
@@ -189,8 +234,17 @@
   // margin-bottom: 30px;
   color: @gray-darker;
 }
+.rui.navbar .pages .dropdown .user-accounts-dropdown-content {
+  min-width: 220px;
+  min-height: 50px;
+  // margin-bottom: 30px;
+  color: @gray-darker;
+}
 
 .rui.navbar .accounts .dropdown ul {
+    padding: 0;
+}
+.rui.navbar .pages .dropdown ul {
     padding: 0;
 }
 
@@ -264,7 +318,6 @@ margin-top: -20px;
  background-color: #ed7d1a !important;
 border: none;
 }
-
 .rui.navbar .tour {
   .display(flex);
   .align-items(center);

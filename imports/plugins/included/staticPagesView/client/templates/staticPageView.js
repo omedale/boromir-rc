@@ -12,7 +12,12 @@ Template.staticPages.onRendered(() => {
 
   simplemde = new SimpleMDE({
     element: document.getElementById("editormd"),
-    autofocus: true
+    autofocus: true,
+    spellChecker: true,
+    renderingConfig: {
+      singleLineBreaks: false,
+      codeSyntaxHighlighting: true
+    }
   });
 
   $(".editor-toolbar").append(
@@ -38,7 +43,7 @@ Template.staticPages.helpers({
 
 Template.staticPages.events({
   "click .static-pages-new": () => {
-    const title = $("#static-page-title").val();
+    const title = $("#static_page_title").val();
     const slug = $("#static-page-slug").val();
     const shopId = Reaction.shopId;
     const pageOwner = Meteor.user()._id;
@@ -54,7 +59,7 @@ Template.staticPages.events({
   },
   "click .static-pages-update": () => {
     const _id = $("#static-page-id").val();
-    const title = $("#static-page-title").val();
+    const title = $("#static_page_title").val();
     const slug = $("#static-page-slug").val();
     const shopId = Reaction.shopId;
     const content = simplemde.value();
@@ -76,7 +81,7 @@ Template.staticPages.events({
   "click .editPage": (event) => {
     const _id = $(event.currentTarget).parents("tr").attr("id");
     const pageDetails = StaticPages.find({_id}).fetch();
-    $("#static-page-title").val(pageDetails[0].title);
+    $("#static_page_title").val(pageDetails[0].title);
     $("#static-page-slug").val(pageDetails[0].slug);
     $("#static-page-id").val(pageDetails[0]._id);
     simplemde.value(pageDetails[0].content);
@@ -98,7 +103,7 @@ Template.staticPages.events({
     });
   },
   "click .addPage": () => {
-    $("#static-page-title").val("").focus();
+    $("#static_page_title").val("").focus();
     $("#static-page-slug").val("");
     simplemde.value("");
     $("#static-pages-submit").addClass("static-pages-new")
