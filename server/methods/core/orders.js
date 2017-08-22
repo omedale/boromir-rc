@@ -15,6 +15,7 @@ import { Logger, Reaction } from "/server/api";
 const emailUrl = MailUrl.findOne();
 process.env.MAIL_URL = emailUrl.url;
 
+
 /**
  * Reaction Order Methods
  */
@@ -531,7 +532,7 @@ Meteor.methods({
     // email templates can be customized in Templates collection
     // loads defaults from /private/email/templates
     const tpl = `orders/${order.workflow.status}`;
-    SSR.compileTemplate(tpl, Reaction.Email.getTemplate(tpl));
+    SSR.compileTemplate(tpl, Email.getTemplate(tpl));
 
     Email.send({
       to: order.email,

@@ -10,6 +10,10 @@ star_click: "[class='stars-rating']"
 send_review: "[class='btn btn-success']"
 login_pw_fld: "[class='form-control login-input-password']"
 login_btn: "[data-event-action='submitSignInForm']"
+search_test: "[class='search search-test']"
+take_tour: "[class='btn btn-default rui button flat']"
+take_tour_next: "[class='introjs-button introjs-nextbutton']"
+take_tour_done: "[class='introjs-button introjs-skipbutton introjs-donebutton']"
 
 #account profile
 pl_email_address_fld: "//div[2]/div/div/div/form/div/input"

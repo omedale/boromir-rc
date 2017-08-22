@@ -22,13 +22,13 @@ exports.paymentHelper = (eleMap, eleIds, getId, browser) => {
 };
 
 exports.startUp = (eleMap, eleIds, getId, usrData, browser) => {
-  const adminEmail = process.env.REACTION_EMAIL || usrData.admin_email;
-  const adminPassword = process.env.REACTION_AUTH || usrData.admin_pw;
+  const guestEmail = process.env.REACTION_EMAIL || usrData.guest_email;
+  const guestPassword = process.env.REACTION_AUTH || usrData.guest_pw;
   browser.pause("5000");
   browser.click(eleMap.login_dropdown_btn);
   browser.pause(5000);
-  browser.setValue(getId.retId(eleIds.login_email_fld_id), adminEmail);
-  browser.setValue(getId.retId(eleIds.login_pw_fld_id), adminPassword);
+  browser.setValue(getId.retId(eleIds.login_email_fld_id), guestEmail);
+  browser.setValue(getId.retId(eleIds.login_pw_fld_id), guestPassword);
   browser.click(eleMap.login_btn);
   browser.pause("5000");
 };

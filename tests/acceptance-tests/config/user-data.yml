@@ -1,9 +1,14 @@
+admin_email: 
+admin_pw: 
 admin_user: Admin
 admin_email: yu7nyetq@localhost.com
 admin_pw: ujHeDyLa
 
-guest_email: "guest@reactioncommerce.com"
-guest_pw: password123
+guest_pw: 
+guest_email: 
+admin_user: Admin
+guest_user: Guest
+wallet_history: Transaction History
 
 wallet_history: Transaction History
 
