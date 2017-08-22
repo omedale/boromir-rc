@@ -8,7 +8,7 @@ const adminTourSteps = [
   {
     intro: `<h2>Welcome to <strong>Reaction</strong> Commerce</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       <strong>Reaction</strong> is the first ecommerce solution for small and medium-sized businesses
       that will provide real time merchandising, real time pricing and promotions, and live monitoring of conversions.
       <br>This brief tour would introduce you to the important controls to help you navigate and effectively
@@ -18,7 +18,7 @@ const adminTourSteps = [
   {
     intro: `<h2>Products</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       All available products would be displayed here. Just browse through.<br>
       When you find that product you have been searching for, click on it and proceed to adding it to your cart.
       <br><strong>OR</strong>
@@ -29,7 +29,7 @@ const adminTourSteps = [
     element: ".search",
     intro: `<h2>Search</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       With countless number of products waiting to be checked out, we help you
       discover that product you're looking for by offering you an intuitive to use
       search system with the following capabilities:
@@ -48,7 +48,7 @@ const adminTourSteps = [
     element: ".cart",
     intro: `<h2>My Cart</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       Yeah, So you've found that product or those products and added them to you cart.
       It's time to check out.<br>
       Click on the cart icon to check out. <br>
@@ -67,7 +67,7 @@ const adminTourSteps = [
     element: ".languages",
     intro: `<h2>Languages</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       Language should never be a barrier. <br> We understand that the earth is a global village, where everyone
       is connected and we aim to provide our services to everyone around the world regardless of their language.<br>
       Just click on language icon and select you preferred language from the dropdown.
@@ -77,7 +77,7 @@ const adminTourSteps = [
     element: "#accounts",
     intro: `<h2>Account Options</h2>
     <hr>
-    <div style="height:200px; overflow-y: scroll;">
+    <div class="tourcontainer" style="height:200px; overflow-y: scroll;">
       Here we have several other options to help you customize your account, and also get the best out of
       <strong>Reaction</strong> Commerce. Just choose from one of the following options available in the dropdown shown in the screen shot below
       <ol>
@@ -115,7 +115,7 @@ const adminTourSteps = [
     element: ".admin-controls-menu",
     intro: `<h2>Admin Controls</h2>
     <hr>
-    <div style="height:200px; overflow-y: scroll;">
+    <div class="tourcontainer" style="height:200px; overflow-y: scroll;">
       There are several functionalities available to you as an Admin/Vendor to futher customize you experience on your store.
       Quick access to this functionalities are available through the controls which appear here.
       Do note that besides the functionalities which appear here, you can view and manage all packages available to you by clicking on the
@@ -136,7 +136,7 @@ const registeredBuyerTourSteps = [
   {
     intro: `<h2>Welcome to <strong>Reaction</strong> Commerce</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       <strong>Reaction</strong> Commererce is your one stop ecommerce platform for all types of goods and services.<br>
       This brief tour would help you get up and running with our platform.
     </div>`
@@ -144,7 +144,7 @@ const registeredBuyerTourSteps = [
   {
     intro: `<h2>Products</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       All available products would be displayed here. Just browse through.<br>
       When you find that product you have been searching for, click on it and proceed to adding it to your cart.
     </div>`
@@ -153,7 +153,7 @@ const registeredBuyerTourSteps = [
     element: ".search",
     intro: `<h2>Search</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       With countless number of products waiting to be checked out, we help you
       discover that product you're looking for by offering you an intuitive to use
       search system with the following capabilities:
@@ -172,7 +172,7 @@ const registeredBuyerTourSteps = [
     element: ".cart",
     intro: `<h2>My Cart</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       Yeah, So you've found that product or those products and added them to you cart.
       It's time to check out.<br>
       Click on the cart icon to check out. <br>
@@ -191,7 +191,7 @@ const registeredBuyerTourSteps = [
     element: ".languages",
     intro: `<h2>Languages</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       Language should never be a barrier. <br> We understand that the earth is a global village, where everyone
       is connected and we aim to provide our services to everyone around the world regardless of their language.<br>
       Just click on language icon and select you preferred language from the dropdown.
@@ -201,7 +201,7 @@ const registeredBuyerTourSteps = [
     element: "#accounts",
     intro: `<h2>Account Options</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       Here you can access several other account related options by clicking to reveal the dropdown:
       <ol>
         <li>
@@ -222,7 +222,7 @@ const registeredBuyerTourSteps = [
     element: ".tour",
     intro: `<h2>Tour</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       That's about everything. Ever need to take a tour again, you can find me here.
     </div>`
   }
@@ -232,7 +232,7 @@ const unregisteredBuyerTourSteps = [
   {
     intro: `<h2>Welcome to <strong>Reaction</strong> Commerce</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       <strong>Reaction</strong> Commerce is your one stop ecommerce platform for all types of products and services.<br>
       This brief tour would help you quickly onboard into our platform.
     </div>`
@@ -249,7 +249,7 @@ const unregisteredBuyerTourSteps = [
     element: ".search",
     intro: `<h2>Search</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       With countless number of products waiting to be checked out, we help you
       discover that product you're looking for by offering you an intuitive to use
       search system with the following capabilities:
@@ -268,7 +268,7 @@ const unregisteredBuyerTourSteps = [
     element: ".cart",
     intro: `<h2>My Cart</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       When you have found the product that you have been searching for, you can add the products to your cart.
       It's time to check out.<br>
       Click on the cart icon to cash out. <br>
@@ -287,7 +287,7 @@ const unregisteredBuyerTourSteps = [
     element: ".languages",
     intro: `<h2>Languages</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       Language should never be a barrier. <br> We understand that the earth is a global village, where everyone
       is connected and we aim to provide our services to everyone around the world regardless of their language.<br>
       Just click on language icon and select you preferred language from the dropdown.
@@ -297,7 +297,7 @@ const unregisteredBuyerTourSteps = [
     element: "#accounts",
     intro: `<h2>Account Options</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       To buy a product you would need to register and that's straight forward :<br>
       Either click on this Icon to reveal a dropdown where you can enter needed details to register <strong>OR</strong><br>
       When you click on your cart to checkout, you would also be presented with the compulsory registration option to proceed
@@ -308,7 +308,7 @@ const unregisteredBuyerTourSteps = [
     element: ".tour",
     intro: `<h2>Tour</h2>
     <hr>
-    <div>
+    <div class="tourcontainer">
       That's about everything. Ever need to take a tour again, you can find me here.
     </div>`
   }
