@@ -113,6 +113,7 @@ class ProductDetail extends Component {
   }
 
   isDigital() {
+    console.log('I\' m in isDigital ', this);
      const isChecked =  document.getElementById("digital").checked;
      if (isChecked) {
        this.setState({ showDigital: true });
