@@ -3,7 +3,7 @@ const yaml = require("js-yaml");
 const fs = require("fs");
 const expect = require("chai").expect;
 const getId = require("../../../lib/get-elements.js");
-const helper = require("./payment_helper");
+// const helper = require("./payment_helper");
 
 beforeEach(function () {
   const browserConfig = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/config/settings.yml", "utf8"));
@@ -14,13 +14,22 @@ beforeEach(function () {
   // });
 });
 
-describe("Paystack payment", function () {
-  xit("Should checkout product with paystack", function () {
+describe("Notification", function () {
+  it("Should send an sms notification when a user make an order", function () {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
     const eleIds = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-ids.yml", "utf8"));
-    const usrData = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/config/user-data.yml", "utf8"));
 
-    helper.startUp(eleMap, eleIds, getId, usrData, browser);
+
+    const email = "test@test.com";
+    const password = "tester";
+
+    browser.pause("5000");
+    browser.click(eleMap.login_dropdown_btn);
+    browser.pause("5000");
+    browser.setValue(getId.retId(eleIds.login_email_fld_id), email);
+    browser.setValue(getId.retId(eleIds.login_pw_fld_id), password);
+    browser.click(eleMap.login_btn);
+    browser.pause("5000");
 
     browser.click(".brand");
     browser.pause("6000");
@@ -38,17 +47,11 @@ describe("Paystack payment", function () {
     browser.click(eleMap.free_shipping);
     browser.pause("4000");
 
-    browser.click(eleMap.paystack_checkout);
-    browser.pause("2000");
-    browser.setValue("#payerName", "");
-    browser.setValue("#payerName", "Medale");
+    browser.click("#walletBtn");
     browser.pause("1000");
-    browser.click("#completeOrder");
+    browser.click("#pay-with-wallet");
     browser.pause("5000");
-    helper.paymentHelper(eleMap, eleIds, getId, browser);
-    browser.pause("2000");
     browser.switchTab();
     expect(browser.getText(".flex-item-fill")).to.equal("Cancel Order");
   });
 });
-

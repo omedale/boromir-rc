@@ -14,7 +14,7 @@ beforeEach(function () {
 });
 
 describe("review test", function () {
-  it("verifies a review is made succesfully", () => {
+  xit("verifies a review is made succesfully", () => {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
     const eleIds = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-ids.yml", "utf8"));
 

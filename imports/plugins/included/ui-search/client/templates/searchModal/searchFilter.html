@@ -10,7 +10,7 @@
               <option value="null" selected disabled>Filter by price</option>
               <option value="all">All prices</option>
               <option value="0-10">below - ₦10</option>
-              <option value="10-55">₦10 - ₦55</option>
+              <option id="search-input" value="10-55">₦10 - ₦55</option>
               <option value="55-100">₦55 - ₦100</option>
               <option value="100-500">₦100 - ₦500</option>
               <option value="500-1000">₦500 - ₦1000</option>
@@ -25,6 +25,7 @@
 						<select id="brand-filter">
               <option value="null" selected disabled>Filter by vendor</option>
               <option value="all">All vendors</option>
+              <option id="vendor-mac" value="Example Manufacturer">Example Manufacturer</option>
                {{#each brand in getBrands productSearchResults }}
               <option value="{{brand}}">{{brand}}</option>
               {{/each}}
