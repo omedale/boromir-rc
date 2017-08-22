@@ -46,7 +46,7 @@ describe("Real Time Search", function () {
     browser.waitForExist("#suggestedTitle");
     expect(browser.getText("#suggestedTitle")).to.equal("SAMSUNG S8");
 
-    it("should display the  error message when no product match the search term", function () {
+    it("should display the  error message when no product matches the search term", function () {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
     const inputText = "error";
 
