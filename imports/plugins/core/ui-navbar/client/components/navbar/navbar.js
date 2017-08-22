@@ -1,9 +1,22 @@
 import { FlatButton } from "/imports/plugins/core/ui/client/components";
-import { Reaction } from "/client/api";
+import { Reaction, Router } from "/client/api";
 import { Tags } from "/lib/collections";
+import { playTour } from "/imports/plugins/included/tour/client/tour";
 
 Template.CoreNavigationBar.onCreated(function () {
   this.state = new ReactiveDict();
+});
+
+
+Template.CoreNavigationBar.onRendered(function () {
+  currentRoute = Router.getRouteName();
+  this.autorun(() => {
+    if (Accounts.findOne(Meteor.userId())) {
+      if (!Accounts.findOne(Meteor.userId()).takenTour && Accounts.findOne(Meteor.userId()).emails[0]) {
+        playTour();
+      }
+    }
+  });
 });
 
 /**
@@ -23,10 +36,29 @@ Template.CoreNavigationBar.events({
     }, $("body").get(0));
     $("body").css("overflow", "hidden");
     $("#search-input").focus();
+  },
+  "click .notification-icon": function () {
+    $("body").css("overflow", "hidden");
+    $("#notify-dropdown").focus();
+  },
+  "click #moreinfo": function () {
+    $("body").css("overflow", "hidden");
+    $("#myModal").modal("show");
   }
 });
 
 Template.CoreNavigationBar.helpers({
+  TourButtonComponent() {
+    return {
+      component: FlatButton,
+      kind: "flat",
+      label: " Take Tour",
+      icon: "fa fa-rocket",
+      onClick() {
+        playTour();
+      }
+    };
+  },
   IconButtonComponent() {
     return {
       component: FlatButton,
