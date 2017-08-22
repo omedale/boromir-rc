@@ -3,10 +3,13 @@ import swal from "sweetalert2";
 import { Meteor } from "meteor/meteor";
 import { Template } from "meteor/templating";
 import { Reaction } from "/client/api";
+import { Random } from "meteor/random";
 import { Accounts, Packages, Wallets } from "/lib/collections";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+
 
 dotenv.config();
+
 
 let list = [];
 let pageList = [];
@@ -74,6 +77,7 @@ function loadList() {
   }
 }
 
+
 function confirmTransfer(transaction, recipient) {
   swal({
     title: "Are you sure?",
@@ -107,7 +111,7 @@ function confirmTransfer(transaction, recipient) {
         swal("Cancelled", "Your Money is safe :)", "error");
       }
     }
-  );
+    );
 }
 const getPaystackSettings = () => {
   const paystack = Packages.findOne({
@@ -191,7 +195,18 @@ const payWithPaystack = (email, amount) => {
   });
   handler.openIframe();
 };
-
+Template.MockPayment.events({
+  "click #pay-btn": event => {
+    event.preventDefault();
+    if (document.getElementById("cardnumber").value === ""
+      || document.getElementById("expiry").value === ""
+    || document.getElementById("cvv").value === "") {
+      Alerts.toast("Please fill empty field(s) ", "error");
+      return false;
+    }
+    Modal.hide("MockPayment");
+  }
+});
 Template.wallet.events({
   "click #first": event => {
     event.preventDefault();
@@ -216,6 +231,27 @@ Template.wallet.events({
     currentPage = numberOfPages;
     Template.instance().state.set("currentPageNum", currentPage);
     loadList();
+  },
+  "click #mockpaystack": event => {
+    event.preventDefault();
+    const accountDetails = Accounts.find(Meteor.userId()).fetch();
+    const userMail = accountDetails[0].emails[0].address;
+    const amount = parseInt(document.getElementById("depositAmount").value, 10);
+    const mailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$/i;
+    if (!mailRegex.test(userMail)) {
+      Alerts.toast("Invalid email address", "error");
+      return false;
+    }
+    if (amount < 0) {
+      Alerts.toast("Amount cannot be negative", "error");
+      return false;
+    }
+    if (amount === 0 || amount === "" || isNaN(amount)) {
+      Alerts.toast("Please enter amount ", "error");
+      return false;
+    }
+    Modal.show("MockPayment");
+    document.getElementById("depositAmount").value = "";
   },
   "submit #deposit": event => {
     event.preventDefault();
@@ -287,7 +323,23 @@ Template.wallet.helpers({
     const currentPageNum = Template.instance().state.get("currentPageNum");
     return currentPageNum;
   },
+  getAmount() {
+    const amount = document.getElementById("depositAmount").value;
+    return amount;
+  },
   formatDate(date) {
     return moment(date).format("dddd, MMMM Do YYYY, h:mm:ssa");
+  }
+});
+
+Template.MockPayment.helpers({
+  getAmount() {
+    const amount = document.getElementById("depositAmount").value;
+    return amount;
+  },
+  userEmail() {
+    const accountDetails = Accounts.find(Meteor.userId()).fetch();
+    const userMail = accountDetails[0].emails[0].address;
+    return userMail;
   }
 });
