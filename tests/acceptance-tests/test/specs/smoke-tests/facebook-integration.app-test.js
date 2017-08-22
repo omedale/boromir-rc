@@ -13,7 +13,7 @@ beforeEach(function () {
 });
 
 describe("facebook test", function () {
-  xit("verifies the facebook integration shows correctly", () => {
+  it("verifies the facebook integration shows correctly", () => {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
 
     browser.pause("5000");
