@@ -15,7 +15,7 @@ beforeEach(function () {
 });
 
 describe("Paystack payment", function () {
-  it("Should checkout product with paystack", function () {
+  xit("Should checkout product with paystack", function () {
     const eleMap = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-map.yml", "utf8"));
     const eleIds = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/elements/element-ids.yml", "utf8"));
     const usrData = yaml.safeLoad(fs.readFileSync("./tests/acceptance-tests/config/user-data.yml", "utf8"));
