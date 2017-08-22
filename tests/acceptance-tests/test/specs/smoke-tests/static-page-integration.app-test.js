@@ -53,13 +53,12 @@ describe("Manage static pages", function () {
     browser.pause(2000);
     browser.click(eleMap.manage_static_page);
     browser.pause(2000);
+    // browser.click(eleMap.delete_page);
     browser.click(eleMap.delete_page);
     browser.pause(2000);
     browser.click(eleMap.confirm_delete);
     browser.pause(500);
     browser.click(eleMap.home_page);
-    browser.pause(500);
-    browser.click(eleMap.availbale_pages);
     browser.pause(5000);
     expect(browser.getAttribute("a", "About-Page")).to.exist;
   });

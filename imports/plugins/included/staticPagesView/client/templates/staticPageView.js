@@ -14,7 +14,6 @@ Template.staticPages.onRendered(() => {
     element: document.getElementById("editormd"),
     autofocus: true,
     spellChecker: true,
-    initialValue: "**Hello world!**",
     renderingConfig: {
       singleLineBreaks: false,
       codeSyntaxHighlighting: true
